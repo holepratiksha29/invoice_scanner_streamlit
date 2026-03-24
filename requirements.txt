@@ -1,5 +1,6 @@
 streamlit
 paddleocr
+paddlepaddle==2.6.1
 numpy
 opencv-python-headless
 pdf2image
