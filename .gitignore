@@ -10,8 +10,9 @@ venv/
 images/
 uploads/
 
-# Paddle models
-.paddle_models/
+# Paddle models (IMPORTANT)
+.paddleocr/
+.paddlex/
 
 # Env files
 .env
