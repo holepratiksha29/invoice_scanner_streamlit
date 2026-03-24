@@ -1,28 +1,26 @@
-from pdf2image import convert_from_path
+import fitz  # PyMuPDF
 import os
 
 IMAGES_DIR = "images"
 os.makedirs(IMAGES_DIR, exist_ok=True)
 
+
 def pdf_to_images(pdf_path):
-    try:
-        print(f"📄 Converting PDF: {pdf_path}")
 
-        images = convert_from_path(pdf_path, dpi=300)
+    print(f"📄 Converting PDF: {pdf_path}")
 
-        paths = []
+    doc = fitz.open(pdf_path)
+    paths = []
 
-        for i, img in enumerate(images):
-            filename = os.path.basename(pdf_path).replace(".pdf", "")
-            out = os.path.join(IMAGES_DIR, f"{filename}_{i}.png")
+    for i, page in enumerate(doc):
+        pix = page.get_pixmap()
 
-            img.save(out, "PNG")
-            print(f"✅ Saved: {out}")
+        filename = os.path.basename(pdf_path).replace(".pdf", "")
+        out = os.path.join(IMAGES_DIR, f"{filename}_{i}.png")
 
-            paths.append(out)
+        pix.save(out)
+        print(f"✅ Saved: {out}")
 
-        return paths
+        paths.append(out)
 
-    except Exception as e:
-        print("❌ PDF ERROR:", e)
-        return []
+    return paths

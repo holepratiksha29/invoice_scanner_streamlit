@@ -2,5 +2,4 @@ streamlit
 numpy
 opencv-python-headless
 Pillow
-pytesseract
-pdf2image
+pymupdf
