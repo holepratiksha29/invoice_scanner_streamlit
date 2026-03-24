@@ -6,21 +6,14 @@ os.makedirs(IMAGES_DIR, exist_ok=True)
 
 
 def pdf_to_images(pdf_path):
-
-    print(f"📄 Converting PDF: {pdf_path}")
-
     doc = fitz.open(pdf_path)
+
     paths = []
 
     for i, page in enumerate(doc):
         pix = page.get_pixmap()
-
-        filename = os.path.basename(pdf_path).replace(".pdf", "")
-        out = os.path.join(IMAGES_DIR, f"{filename}_{i}.png")
-
+        out = os.path.join(IMAGES_DIR, f"page_{i}.png")
         pix.save(out)
-        print(f"✅ Saved: {out}")
-
         paths.append(out)
 
     return paths
