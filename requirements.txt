@@ -1,7 +1,5 @@
 streamlit
-paddleocr
-paddlepaddle==2.6.1
+pytesseract
 numpy
-opencv-python-headless
 pdf2image
 Pillow

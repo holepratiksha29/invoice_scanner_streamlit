@@ -1,27 +1,19 @@
-from paddleocr import PaddleOCR
-import os
-
-# Disable model check (faster startup)
-os.environ["PADDLE_PDX_DISABLE_MODEL_SOURCE_CHECK"] = "True"
-
-# Initialize OCR
-ocr = PaddleOCR(use_angle_cls=True, lang="en")
-
+import pytesseract
+from PIL import Image
 
 def extract_text(image_path):
     try:
-        result = ocr.ocr(image_path)
+        img = Image.open(image_path)
 
-        text_list = []
+        text = pytesseract.image_to_string(img)
 
-        if result and len(result) > 0:
-            for line in result[0]:
-                if line and len(line) > 1:
-                    text_list.append(line[1][0])
+        text_list = text.split("\n")
 
-        print("✅ OCR RESULT:", text_list)
+        cleaned = [line.strip() for line in text_list if line.strip()]
 
-        return text_list
+        print("✅ OCR TEXT:", cleaned)
+
+        return cleaned
 
     except Exception as e:
         print("❌ OCR ERROR:", e)
