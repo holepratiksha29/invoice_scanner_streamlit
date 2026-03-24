@@ -12,17 +12,23 @@ st.title("📄 Invoice Data Extractor")
 uploaded_file = st.file_uploader("Upload Invoice PDF", type=["pdf"])
 
 if uploaded_file is not None:
-    st.success("PDF Uploaded Successfully")
+
+    st.success("✅ PDF Uploaded")
 
     if st.button("Extract Data"):
 
-        data = extract_invoice_data(uploaded_file)
+        with st.spinner("Processing... ⏳"):
 
-        st.subheader("📊 Extracted Invoice Data")
+            data = extract_invoice_data(uploaded_file)
 
-        st.write("Invoice Number:", data.get("invoice_number", "N/A"))
-        st.write("Invoice Date:", data.get("invoice_date", "N/A"))
-        st.write("Customer Name:", data.get("customer_name", "N/A"))
-        st.write("Email:", data.get("email", "N/A"))
-        st.write("Phone Number:", data.get("phone_number", "N/A"))
-        st.write("Total Amount:", data.get("total_amount", "N/A"))
+        if "error" in data:
+            st.error(data["error"])
+        else:
+            st.subheader("📊 Extracted Data")
+
+            st.write("Invoice Number:", data["invoice_number"])
+            st.write("Invoice Date:", data["invoice_date"])
+            st.write("Customer Name:", data["customer_name"])
+            st.write("Email:", data["email"])
+            st.write("Phone:", data["phone_number"])
+            st.write("Total Amount:", data["total_amount"])

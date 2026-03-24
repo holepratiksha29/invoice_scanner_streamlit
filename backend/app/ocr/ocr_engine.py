@@ -1,12 +1,12 @@
 from paddleocr import PaddleOCR
 import os
 
+# Disable model check (faster startup)
 os.environ["PADDLE_PDX_DISABLE_MODEL_SOURCE_CHECK"] = "True"
 
-ocr = PaddleOCR(
-    use_angle_cls=True,
-    lang="en"
-)
+# Initialize OCR
+ocr = PaddleOCR(use_angle_cls=True, lang="en")
+
 
 def extract_text(image_path):
     try:
@@ -14,11 +14,12 @@ def extract_text(image_path):
 
         text_list = []
 
-        if result:
+        if result and len(result) > 0:
             for line in result[0]:
-                text_list.append(line[1][0])
+                if line and len(line) > 1:
+                    text_list.append(line[1][0])
 
-        print("OCR RESULT:", text_list)
+        print("✅ OCR RESULT:", text_list)
 
         return text_list
 

@@ -4,13 +4,14 @@ import os
 IMAGES_DIR = "images"
 os.makedirs(IMAGES_DIR, exist_ok=True)
 
+
 def pdf_to_images(pdf_path):
 
     print(f"📄 Converting PDF: {pdf_path}")
 
     images = convert_from_path(
         pdf_path,
-        dpi=200   # ✅ SAFE for cloud (avoid large image error)
+        dpi=300   # stable
     )
 
     paths = []
