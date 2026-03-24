@@ -9,37 +9,25 @@ os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 
 def extract_invoice_data(uploaded_file):
+
     try:
-        # 📌 File save path
         file_location = os.path.join(UPLOAD_FOLDER, uploaded_file.name)
 
-        # 📌 Save uploaded file
         with open(file_location, "wb") as buffer:
             buffer.write(uploaded_file.getbuffer())
 
-        print(f"📂 File Saved: {file_location}")
+        print(f"📂 PDF Saved: {file_location}")
 
-        # 📌 Convert PDF → Images
         images = pdf_to_images(file_location)
-
-        if not images:
-            return {"error": "PDF to image conversion failed"}
 
         all_text = []
 
-        # 📌 OCR each image
         for img_path in images:
             text = extract_text(img_path)
-
-            if text:
-                all_text.extend(text)
+            all_text.extend(text)
 
         print("📝 FINAL OCR TEXT:", all_text)
 
-        if not all_text:
-            return {"error": "No text extracted from image"}
-
-        # 📌 Parse invoice
         invoice_data = parse_invoice(all_text)
 
         print("✅ FINAL DATA:", invoice_data)
