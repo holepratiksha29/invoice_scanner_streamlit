@@ -1,5 +1,5 @@
 from msal import ConfidentialClientApplication
-from app.core.config import settings
+from backend.app.core.config import settings
 
 
 class EmailAuth:

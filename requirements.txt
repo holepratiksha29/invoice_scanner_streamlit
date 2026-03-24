@@ -1,4 +1,7 @@
 streamlit
-pytesseract
+paddlepaddle==2.6.2
+paddleocr==2.7.0.3
+numpy==1.26.4
+opencv-python-headless==4.8.1.78
+pdf2image
 Pillow
-opencv-python

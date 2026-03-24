@@ -1,6 +1,21 @@
-venv/
-backend/venv/
-.env
+# Python
 __pycache__/
-uploads/
 *.pyc
+*.pyo
+
+# Virtual env
+venv/
+
+# Runtime folders
+images/
+uploads/
+
+# Paddle models
+.paddle_models/
+
+# Env files
+.env
+
+# OS files
+.DS_Store
+Thumbs.db
