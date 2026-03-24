@@ -1,19 +1,18 @@
-import easyocr
-
-# Load reader once
-reader = easyocr.Reader(['en'], gpu=False)
+import pytesseract
+from PIL import Image
 
 
 def extract_text(image_path):
     try:
         print(f"📸 Processing image: {image_path}")
 
-        result = reader.readtext(image_path)
+        img = Image.open(image_path)
 
-        text_list = []
+        text = pytesseract.image_to_string(img)
 
-        for (bbox, text, prob) in result:
-            text_list.append(text)
+        text_list = text.split("\n")
+
+        text_list = [t.strip() for t in text_list if t.strip() != ""]
 
         print("✅ OCR RESULT:", text_list)
 
