@@ -10,8 +10,11 @@ def parse_invoice(text_lines):
     invoice_number = None
 
     patterns = [
-        r'Invoice\s*(No|Number)?[:\-]?\s*(\d+)',
-        r'Bill\s*No[:\-]?\s*(\d+)'
+        r'Invoice\s*(No|Number)?\s*[:#\-]?\s*(\d+)',
+        r'Invoice\s*#\s*(\d+)',
+        r'Inv\s*No\s*[:\-]?\s*(\d+)',
+        r'Bill\s*No\s*[:\-]?\s*(\d+)',
+        r'\bINV[- ]?(\d+)\b'
     ]
 
     for pattern in patterns:
@@ -19,6 +22,19 @@ def parse_invoice(text_lines):
         if match:
             invoice_number = match.group(match.lastindex)
             break
+
+    # invoice_number = None
+
+    # patterns = [
+    #     r'Invoice\s*(No|Number)?[:\-]?\s*(\d+)',
+    #     r'Bill\s*No[:\-]?\s*(\d+)'
+    # ]
+
+    # for pattern in patterns:
+    #     match = re.search(pattern, text, re.IGNORECASE)
+    #     if match:
+    #         invoice_number = match.group(match.lastindex)
+    #         break
 
     # ---------------- Date ----------------
     date_match = re.search(
