@@ -4,6 +4,8 @@ def parse_invoice(text_lines):
 
     text = " ".join(text_lines)
 
+    print("🔍 OCR TEXT:", text)
+
     print("🧾 PARSER INPUT:", text)
 
     # ---------------- Invoice Number ----------------
