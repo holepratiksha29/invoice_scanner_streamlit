@@ -8,23 +8,32 @@ def parse_invoice(text_lines):
 
     print("🧾 PARSER INPUT:", text)
 
-    # ---------------- Invoice Number ----------------
-    invoice_number = None
 
-    patterns = [
-        r'Invoice\s*(No|Number)?\s*[:#\-]?\s*(\d+)',
-        r'Invoice\s*#\s*(\d+)',
-        r'Inv\s*No\s*[:\-]?\s*(\d+)',
-        r'Bill\s*No\s*[:\-]?\s*(\d+)',
-        r'\bINV[- ]?(\d+)\b'
-    ]
+    # ---------------- Invoice Number (SUPER ROBUST) ----------------
 
-    for pattern in patterns:
-        match = re.search(pattern, text, re.IGNORECASE)
+    invoice_number = "Not Found"
+
+    # Try line by line (BEST method)
+    for line in text_lines:
+        line_lower = line.lower()
+        
+        if "invoice" in line_lower:
+            match = re.search(r'\d{4,}', line)  # any number >= 4 digits
+            if match:
+                invoice_number = match.group()
+                break
+
+
+    # Fallback (full text search)
+    if invoice_number == "Not Found":
+        match = re.search(r'\b\d{5,}\b', text)
         if match:
-            invoice_number = match.group(match.lastindex)
-            break
+            invoice_number = match.group()
 
+
+
+    # ---------------- Invoice Number ----------------
+    
     # invoice_number = None
 
     # patterns = [
