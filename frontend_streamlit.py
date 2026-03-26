@@ -26,9 +26,18 @@ if uploaded_file is not None:
         else:
             st.subheader("📊 Extracted Data")
 
+
             st.write("Invoice Number:", data["invoice_number"])
             st.write("Invoice Date:", data["invoice_date"])
             st.write("Customer Name:", data["customer_name"])
             st.write("Email:", data["email"])
             st.write("Phone:", data["phone_number"])
             st.write("Total Amount:", data["total_amount"])
+
+
+            # st.write("Invoice Number:", data["invoice_number"])
+            # st.write("Invoice Date:", data["invoice_date"])
+            # st.write("Customer Name:", data["customer_name"])
+            # st.write("Email:", data["email"])
+            # st.write("Phone:", data["phone_number"])
+            # st.write("Total Amount:", data["total_amount"])
